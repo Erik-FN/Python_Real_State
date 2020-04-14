@@ -1,9 +1,22 @@
 from django.shortcuts import render
+from .models import Listing
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from listings.models import Listing
+from listings.models import Realtor
 
 def index(request):
-    return render(request, 'listings/listings.html')
+    listings = Listing.objects.order_by('-list_date').filter(is_published = True)
+    paginator = Paginator(listings, 3)
+    page = request.GET.get('page')
+    page_listings = paginator.get_page(page)  
 
-def listing(request):
+    context = {
+        "listings": page_listings
+    }
+
+    return render(request, 'listings/listings.html',context)
+
+def listing(request, listing_id):
     return render(request, 'listings/listing.html')
 
 
