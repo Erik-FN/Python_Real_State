@@ -18,7 +18,3 @@ Steps to run the site on local:
     1 - source ./venv/bin/activate
     2 - python manage.py runserver
     3 - go to localhost 8000
-
-
-
-
